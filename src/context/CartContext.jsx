@@ -21,7 +21,19 @@ export function CartProvider({ children }) {
         setError(null);
         try {
             const { data } = await getCart();
-            setCart(data);
+            const normalizedCart = {
+                ...data,
+                items: (data?.items || []).map((item) => ({
+                    ...item,
+                    productName:
+                        item.productName ??
+                        item.product?.name ??
+                        item.name ??
+                        "Producto",
+                    price: item.product?.price ?? item.price ?? 0,
+                })),
+            };
+            setCart(normalizedCart);
         } catch (err) {
             setError("No se pudo cargar el carrito.");
         } finally {

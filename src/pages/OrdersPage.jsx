@@ -46,7 +46,7 @@ export default function OrdersPage() {
                         >
                             <span>Orden #{order.id}</span>
                             <span>{order.status || "Procesada"}</span>
-                            <span>${order.total}</span>
+                            <span>S/{order.total}</span>
                         </Link>
                     ))}
                 </div>

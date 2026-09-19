@@ -36,7 +36,7 @@ export default function OrderDetailPage() {
       <Link to="/orders">&larr; Volver a órdenes</Link>
       <h1>Orden #{order.id}</h1>
       <p>Estado: {order.status || "Procesada"}</p>
-      <p>Total: ${order.total}</p>
+      <p>Total: S/{order.total}</p>
 
       <h3>Envío</h3>
       <p>
@@ -51,12 +51,17 @@ export default function OrderDetailPage() {
         <>
           <h3>Productos</h3>
           <ul>
-            {order.items.map((item) => (
-              <li key={item.id}>
-                {item.productName || item.name} x{item.quantity} — $
-                {item.price}
-              </li>
-            ))}
+            {order.items.map((item) => {
+              const productName =
+                item.product?.name ?? item.productName ?? item.name ?? "Producto";
+              const productPrice = item.product?.price ?? item.price ?? 0;
+
+              return (
+                <li key={item.id}>
+                  {productName} x{item.quantity} — S/{productPrice}
+                </li>
+              );
+            })}
           </ul>
         </>
       )}
