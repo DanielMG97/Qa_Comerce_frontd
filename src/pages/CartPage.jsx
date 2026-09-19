@@ -12,10 +12,12 @@ export default function CartPage() {
     }, [refreshCart]);
 
     const items = cart?.items || [];
-    const total = cart?.total ?? items.reduce(
-        (sum, item) => sum + (item.price || 0) * item.quantity,
-        0
-    );
+    const total =
+        cart?.total ??
+        items.reduce(
+            (sum, item) => sum + ((item.product?.price ?? item.price ?? 0) * item.quantity),
+            0
+        );
 
     if (loading && !cart) return <p className="state-msg">Cargando carrito...</p>;
 
@@ -32,29 +34,37 @@ export default function CartPage() {
             ) : (
                 <>
                     <div className="cart-list">
-                        {items.map((item) => (
-                            <div key={item.id} className="cart-item">
-                                <div className="cart-item__info">
-                                    <h3>{item.productName || item.name}</h3>
-                                    <p>${item.price}</p>
+                        {items.map((item) => {
+                            const productName =
+                                item.product?.name ?? item.productName ?? item.name ?? "Producto";
+                            const productPrice = item.product?.price ?? item.price ?? 0;
+
+                            return (
+                                <div key={item.id} className="cart-item">
+                                    <div className="cart-item__info">
+                                        <h3>{productName}</h3>
+                                        <p>S/ {productPrice}</p>
+                                    </div>
+                                    <div className="cart-item__actions">
+                                        <input
+                                            type="number"
+                                            min="1"
+                                            value={item.quantity}
+                                            onChange={(e) =>
+                                                updateItem(item.id, Number(e.target.value))
+                                            }
+                                        />
+                                        <button onClick={() => removeItem(item.id)}>Eliminar</button>
+                                    </div>
                                 </div>
-                                <div className="cart-item__actions">
-                                    <input
-                                        type="number"
-                                        min="1"
-                                        value={item.quantity}
-                                        onChange={(e) =>
-                                            updateItem(item.id, Number(e.target.value))
-                                        }
-                                    />
-                                    <button onClick={() => removeItem(item.id)}>Eliminar</button>
-                                </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
 
                     <div className="cart-summary">
-                        <p>Total: ${total}</p>
+                        <p>
+                            Total: <strong>S/ {total}</strong>
+                        </p>
                         <button onClick={() => navigate("/checkout")}>
                             Ir a checkout
                         </button>

@@ -89,7 +89,7 @@ export default function ProductsPage() {
                             </Link>
 
                             <p id={`product-price-${product.id}`} className="product-card__price">
-                                ${product.price}
+                                S/ {product.price}
                             </p>
 
                             {/* Indicador de stock con validación visual */}
