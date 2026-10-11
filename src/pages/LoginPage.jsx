@@ -23,15 +23,21 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="auth-page">
-            <form onSubmit={handleSubmit} className="auth-form">
+        <div className="auth-page" data-testid="login-page">
+            <form onSubmit={handleSubmit} className="auth-form" data-testid="login-form">
                 <h1>Iniciar sesión</h1>
 
-                {error && <div className="form-error">{error}</div>}
+                {error && (
+                    <div className="form-error" data-testid="login-error">
+                        {error}
+                    </div>
+                )}
 
                 <label>
                     Email
                     <input
+                        id="login-email"
+                        data-testid="login-email"
                         type="email"
                         name="email"
                         value={form.email}
@@ -43,6 +49,8 @@ export default function LoginPage() {
                 <label>
                     Contraseña
                     <input
+                        id="login-password"
+                        data-testid="login-password"
                         type="password"
                         name="password"
                         value={form.password}
@@ -51,12 +59,12 @@ export default function LoginPage() {
                     />
                 </label>
 
-                <button type="submit" disabled={loading}>
+                <button type="submit" data-testid="login-submit" disabled={loading}>
                     {loading ? "Ingresando..." : "Ingresar"}
                 </button>
 
                 <p>
-                    ¿No tienes cuenta? <Link to="/register">Regístrate</Link>
+                    ¿No tienes cuenta? <Link data-testid="login-register-link" to="/register">Regístrate</Link>
                 </p>
             </form>
         </div>

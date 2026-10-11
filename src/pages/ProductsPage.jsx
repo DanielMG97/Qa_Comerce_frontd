@@ -47,11 +47,12 @@ export default function ProductsPage() {
     if (error) return <p className="state-msg state-msg--error">{error}</p>;
 
     return (
-        <div className="products-page">
+        <div className="products-page" data-testid="products-page">
             {/* Mensaje de notificación flotante al añadir al carrito */}
             {notification && (
                 <div
                     id="cart-notification-toast"
+                    data-testid="cart-notification-toast"
                     className="toast-notification"
                     style={{
                         position: "fixed",
@@ -71,7 +72,7 @@ export default function ProductsPage() {
             )}
 
             <h1>Productos</h1>
-            <div className="products-grid">
+            <div className="products-grid" data-testid="products-grid">
                 {products.map((product) => {
                     const isOutOfStock = !product.stock || product.stock <= 0;
 
@@ -79,22 +80,34 @@ export default function ProductsPage() {
                         <div
                             key={product.id}
                             id={`product-card-${product.id}`}
+                            data-testid={`product-card-${product.id}`}
                             className="product-card"
                         >
                             {product.imageUrl && (
-                                <img src={product.imageUrl} alt={product.name} />
+                                <img
+                                    src={product.imageUrl}
+                                    alt={product.name}
+                                    data-testid={`product-image-${product.id}`}
+                                />
                             )}
-                            <Link to={`/products/${product.id}`}>
-                                <h3 id={`product-name-${product.id}`}>{product.name}</h3>
+                            <Link to={`/products/${product.id}`} data-testid={`product-link-${product.id}`}>
+                                <h3 id={`product-name-${product.id}`} data-testid={`product-name-${product.id}`}>
+                                    {product.name}
+                                </h3>
                             </Link>
 
-                            <p id={`product-price-${product.id}`} className="product-card__price">
+                            <p
+                                id={`product-price-${product.id}`}
+                                data-testid={`product-price-${product.id}`}
+                                className="product-card__price"
+                            >
                                 S/ {product.price}
                             </p>
 
                             {/* Indicador de stock con validación visual */}
                             <p
                                 id={`product-stock-${product.id}`}
+                                data-testid={`product-stock-${product.id}`}
                                 className="product-card__stock"
                                 style={{
                                     fontSize: "0.85rem",
@@ -109,6 +122,7 @@ export default function ProductsPage() {
                             {isAuthenticated ? (
                                 <button
                                     id={`add-to-cart-btn-${product.id}`}
+                                    data-testid={`add-to-cart-btn-${product.id}`}
                                     onClick={() => handleAddToCart(product)}
                                     disabled={isOutOfStock}
                                     style={{
@@ -119,7 +133,12 @@ export default function ProductsPage() {
                                     {isOutOfStock ? "Agotado" : "Agregar al carrito"}
                                 </button>
                             ) : (
-                                <Link to="/login" id={`login-to-buy-btn-${product.id}`} className="button-link">
+                                <Link
+                                    to="/login"
+                                    id={`login-to-buy-btn-${product.id}`}
+                                    data-testid={`login-to-buy-btn-${product.id}`}
+                                    className="button-link"
+                                >
                                     Inicia sesión para comprar
                                 </Link>
                             )}

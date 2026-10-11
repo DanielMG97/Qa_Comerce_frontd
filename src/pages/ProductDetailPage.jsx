@@ -37,12 +37,20 @@ export default function ProductDetailPage() {
     if (!product) return null;
 
     return (
-        <div className="product-detail">
-            <Link to="/products">&larr; Volver a productos</Link>
-            <h1>{product.name}</h1>
-            {product.imageUrl && <img src={product.imageUrl} alt={product.name} />}
-            <p>{product.description}</p>
-            <p className="product-detail__price">${product.price}</p>
+        <div className="product-detail" data-testid="product-detail-page">
+            <Link to="/products" data-testid="product-detail-back-link">&larr; Volver a productos</Link>
+            <h1 data-testid="product-detail-name">{product.name}</h1>
+            {product.imageUrl && (
+                <img
+                    src={product.imageUrl}
+                    alt={product.name}
+                    data-testid="product-detail-image"
+                />
+            )}
+            <p data-testid="product-detail-description">{product.description}</p>
+            <p className="product-detail__price" data-testid="product-detail-price">
+                ${product.price}
+            </p>
 
             {isAuthenticated ? (
                 <div className="product-detail__actions">
@@ -50,14 +58,15 @@ export default function ProductDetailPage() {
                         type="number"
                         min="1"
                         value={quantity}
+                        data-testid="product-detail-quantity"
                         onChange={(e) => setQuantity(Number(e.target.value))}
                     />
-                    <button onClick={() => addItem(product.id, quantity)}>
+                    <button onClick={() => addItem(product.id, quantity)} data-testid="product-detail-add-to-cart">
                         Agregar al carrito
                     </button>
                 </div>
             ) : (
-                <Link to="/login" className="button-link">
+                <Link to="/login" data-testid="product-detail-login-link" className="button-link">
                     Inicia sesión para comprar
                 </Link>
             )}

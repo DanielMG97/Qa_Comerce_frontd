@@ -42,15 +42,21 @@ export default function CheckoutPage() {
     }
 
     return (
-        <div className="checkout-page">
+        <div className="checkout-page" data-testid="checkout-page">
             <h1>Checkout</h1>
 
-            <form onSubmit={handleSubmit} className="checkout-form">
-                {error && <div className="form-error">{error}</div>}
+            <form onSubmit={handleSubmit} className="checkout-form" data-testid="checkout-form">
+                {error && (
+                    <div className="form-error" data-testid="checkout-error">
+                        {error}
+                    </div>
+                )}
 
                 <label>
                     Nombre
                     <input
+                        id="checkout-first-name"
+                        data-testid="checkout-first-name"
                         name="firstName"
                         value={form.firstName}
                         onChange={handleChange}
@@ -61,6 +67,8 @@ export default function CheckoutPage() {
                 <label>
                     Apellido
                     <input
+                        id="checkout-last-name"
+                        data-testid="checkout-last-name"
                         name="lastName"
                         value={form.lastName}
                         onChange={handleChange}
@@ -71,6 +79,8 @@ export default function CheckoutPage() {
                 <label>
                     Dirección
                     <input
+                        id="checkout-address"
+                        data-testid="checkout-address"
                         name="address"
                         value={form.address}
                         onChange={handleChange}
@@ -81,6 +91,8 @@ export default function CheckoutPage() {
                 <label>
                     Ciudad
                     <input
+                        id="checkout-city"
+                        data-testid="checkout-city"
                         name="city"
                         value={form.city}
                         onChange={handleChange}
@@ -91,6 +103,8 @@ export default function CheckoutPage() {
                 <label>
                     Código postal
                     <input
+                        id="checkout-postal-code"
+                        data-testid="checkout-postal-code"
                         name="postalCode"
                         value={form.postalCode}
                         onChange={handleChange}
@@ -101,6 +115,8 @@ export default function CheckoutPage() {
                 <label>
                     País
                     <input
+                        id="checkout-country"
+                        data-testid="checkout-country"
                         name="country"
                         value={form.country}
                         onChange={handleChange}
@@ -111,6 +127,8 @@ export default function CheckoutPage() {
                 <label>
                     Teléfono
                     <input
+                        id="checkout-phone"
+                        data-testid="checkout-phone"
                         name="phone"
                         value={form.phone}
                         onChange={handleChange}
@@ -118,7 +136,7 @@ export default function CheckoutPage() {
                     />
                 </label>
 
-                <button type="submit" disabled={loading}>
+                <button type="submit" data-testid="checkout-submit" disabled={loading}>
                     {loading ? "Procesando..." : "Confirmar compra"}
                 </button>
             </form>
