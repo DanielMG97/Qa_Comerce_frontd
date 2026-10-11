@@ -29,24 +29,25 @@ export default function OrdersPage() {
     if (error) return <p className="state-msg state-msg--error">{error}</p>;
 
     return (
-        <div className="orders-page">
+        <div className="orders-page" data-testid="orders-page">
             <h1>Tus órdenes</h1>
 
             {orders.length === 0 ? (
-                <p>
+                <p data-testid="orders-empty-message">
                     Aún no tienes órdenes. <Link to="/products">Ver productos</Link>
                 </p>
             ) : (
-                <div className="orders-list">
+                <div className="orders-list" data-testid="orders-list">
                     {orders.map((order) => (
                         <Link
                             key={order.id}
                             to={`/orders/${order.id}`}
                             className="order-card"
+                            data-testid={`order-card-${order.id}`}
                         >
-                            <span>Orden #{order.id}</span>
-                            <span>{order.status || "Procesada"}</span>
-                            <span>S/{order.total}</span>
+                            <span data-testid={`order-id-${order.id}`}>Orden #{order.id}</span>
+                            <span data-testid={`order-status-${order.id}`}>{order.status || "Procesada"}</span>
+                            <span data-testid={`order-total-${order.id}`}>S/{order.total}</span>
                         </Link>
                     ))}
                 </div>

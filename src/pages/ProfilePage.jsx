@@ -29,15 +29,15 @@ export default function ProfilePage() {
     if (!profile) return null;
 
     return (
-        <div className="profile-page">
+        <div className="profile-page" data-testid="profile-page">
             <h1>Mi perfil</h1>
-            <p>
+            <p data-testid="profile-name">
                 <strong>Nombre:</strong> {profile.firstName} {profile.lastName}
             </p>
-            <p>
+            <p data-testid="profile-email">
                 <strong>Email:</strong> {profile.email}
             </p>
-            <p>
+            <p data-testid="profile-phone">
                 <strong>Teléfono:</strong> {profile.phone}
             </p>
         </div>

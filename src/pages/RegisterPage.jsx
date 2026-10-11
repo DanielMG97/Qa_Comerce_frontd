@@ -37,17 +37,21 @@ export default function RegisterPage() {
     }
 
     return (
-        <div className="auth-page">
-            <form onSubmit={handleSubmit} className="auth-form">
+        <div className="auth-page" data-testid="register-page">
+            <form onSubmit={handleSubmit} className="auth-form" data-testid="register-form">
                 <h1>Crear cuenta</h1>
 
                 {(localError || error) && (
-                    <div className="form-error">{localError || error}</div>
+                    <div className="form-error" data-testid="register-error">
+                        {localError || error}
+                    </div>
                 )}
 
                 <label>
                     Nombre
                     <input
+                        id="register-first-name"
+                        data-testid="register-first-name"
                         name="firstName"
                         value={form.firstName}
                         onChange={handleChange}
@@ -58,6 +62,8 @@ export default function RegisterPage() {
                 <label>
                     Apellido
                     <input
+                        id="register-last-name"
+                        data-testid="register-last-name"
                         name="lastName"
                         value={form.lastName}
                         onChange={handleChange}
@@ -68,6 +74,8 @@ export default function RegisterPage() {
                 <label>
                     Email
                     <input
+                        id="register-email"
+                        data-testid="register-email"
                         type="email"
                         name="email"
                         value={form.email}
@@ -79,6 +87,8 @@ export default function RegisterPage() {
                 <label>
                     Teléfono
                     <input
+                        id="register-phone"
+                        data-testid="register-phone"
                         name="phone"
                         value={form.phone}
                         onChange={handleChange}
@@ -89,6 +99,8 @@ export default function RegisterPage() {
                 <label>
                     Contraseña
                     <input
+                        id="register-password"
+                        data-testid="register-password"
                         type="password"
                         name="password"
                         value={form.password}
@@ -100,6 +112,8 @@ export default function RegisterPage() {
                 <label>
                     Confirmar contraseña
                     <input
+                        id="register-confirm-password"
+                        data-testid="register-confirm-password"
                         type="password"
                         name="confirmPassword"
                         value={form.confirmPassword}
@@ -108,12 +122,12 @@ export default function RegisterPage() {
                     />
                 </label>
 
-                <button type="submit" disabled={loading}>
+                <button type="submit" data-testid="register-submit" disabled={loading}>
                     {loading ? "Creando cuenta..." : "Registrarme"}
                 </button>
 
                 <p>
-                    ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
+                    ¿Ya tienes cuenta? <Link data-testid="register-login-link" to="/login">Inicia sesión</Link>
                 </p>
             </form>
         </div>

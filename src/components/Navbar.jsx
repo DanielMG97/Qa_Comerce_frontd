@@ -16,19 +16,25 @@ export default function Navbar() {
     const totalItems = cart?.items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
     return (
-        <nav className="navbar">
-            <Link id="nav-home" to="/products" className="navbar__brand">
+        <nav className="navbar" data-testid="navbar">
+            <Link id="nav-home" data-testid="nav-home" to="/products" className="navbar__brand">
                 QACommerce
             </Link>
             <div className="navbar__links">
-                <Link id="nav-products" to="/products">Productos</Link>
+                <Link id="nav-products" data-testid="nav-products" to="/products">Productos</Link>
 
                 {isAuthenticated && (
-                    <Link id="nav-cart" to="/cart" style={{ display: "inline-flex", alignItems: "center" }}>
+                    <Link
+                        id="nav-cart"
+                        data-testid="nav-cart"
+                        to="/cart"
+                        style={{ display: "inline-flex", alignItems: "center" }}
+                    >
                         Carrito
                         {totalItems > 0 && (
                             <span
                                 id="nav-cart-count"
+                                data-testid="nav-cart-count"
                                 style={{
                                     marginLeft: "6px",
                                     backgroundColor: "#0bbef5",
@@ -45,20 +51,24 @@ export default function Navbar() {
                     </Link>
                 )}
 
-                {isAuthenticated && <Link id="nav-orders" to="/orders">Órdenes</Link>}
-                {isAuthenticated && <Link id="nav-profile" to="/profile">Perfil</Link>}
+                {isAuthenticated && (
+                    <Link id="nav-orders" data-testid="nav-orders" to="/orders">Órdenes</Link>
+                )}
+                {isAuthenticated && (
+                    <Link id="nav-profile" data-testid="nav-profile" to="/profile">Perfil</Link>
+                )}
 
                 {isAuthenticated ? (
                     <>
-                        <span id="nav-user-display" className="navbar__user">
+                        <span id="nav-user-display" data-testid="nav-user-display" className="navbar__user">
                             {user?.firstName || user?.email}
                         </span>
-                        <button id="logout-btn" onClick={handleLogout}>Cerrar sesión</button>
+                        <button id="logout-btn" data-testid="logout-btn" onClick={handleLogout}>Cerrar sesión</button>
                     </>
                 ) : (
                     <>
-                        <Link id="nav-login" to="/login">Iniciar sesión</Link>
-                        <Link id="nav-register" to="/register">Registrarse</Link>
+                        <Link id="nav-login" data-testid="nav-login" to="/login">Iniciar sesión</Link>
+                        <Link id="nav-register" data-testid="nav-register" to="/register">Registrarse</Link>
                     </>
                 )}
             </div>

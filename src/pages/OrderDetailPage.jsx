@@ -32,14 +32,14 @@ export default function OrderDetailPage() {
   if (!order) return null;
 
   return (
-    <div className="order-detail">
-      <Link to="/orders">&larr; Volver a órdenes</Link>
-      <h1>Orden #{order.id}</h1>
-      <p>Estado: {order.status || "Procesada"}</p>
-      <p>Total: S/{order.total}</p>
+    <div className="order-detail" data-testid="order-detail-page">
+      <Link to="/orders" data-testid="order-detail-back-link">&larr; Volver a órdenes</Link>
+      <h1 data-testid="order-detail-id">Orden #{order.id}</h1>
+      <p data-testid="order-detail-status">Estado: {order.status || "Procesada"}</p>
+      <p data-testid="order-detail-total">Total: S/{order.total}</p>
 
-      <h3>Envío</h3>
-      <p>
+      <h3 data-testid="order-detail-shipping-title">Envío</h3>
+      <p data-testid="order-detail-shipping-address">
         {order.firstName} {order.lastName}
         <br />
         {order.address}, {order.city}, {order.postalCode}
@@ -50,14 +50,14 @@ export default function OrderDetailPage() {
       {order.items && (
         <>
           <h3>Productos</h3>
-          <ul>
+          <ul data-testid="order-detail-items">
             {order.items.map((item) => {
               const productName =
                 item.product?.name ?? item.productName ?? item.name ?? "Producto";
               const productPrice = item.product?.price ?? item.price ?? 0;
 
               return (
-                <li key={item.id}>
+                <li key={item.id} data-testid={`order-detail-item-${item.id}`}>
                   {productName} x{item.quantity} — S/{productPrice}
                 </li>
               );
